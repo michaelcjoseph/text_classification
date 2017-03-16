@@ -2,9 +2,39 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
+# Tokenize text which includes doing the following:
+# Lowercase the entire string
+# Convert all - and _ to spaces
+# Remove all non alphanumeric characters
+# Split the string into an array of words using spaces as the delimiter
+# Stem each individual word and return the resulting array
 def format_text( text )
   formatted_text = text.downcase.gsub("-", " ").gsub("_", " ").gsub(/[^a-z0-9\s]/i, '').split(/\s+/)
   return formatted_text.map {|word| word.stem}
+end
+
+# Comput sigmoid nonlinearity
+def sigmoid( x )
+  return 1 / (1 + Math.exp(-x))
+end
+
+# Convert output of sigmoid function to its derivative
+def sigmoid_output_to_derivative( output )
+  return output*(1-output)
+end
+
+# Return bag of words array: 0 or 1 for each word in the bag that exists in the
+# sentence
+def bag_of_words( sentence_words, words )
+  # Bag of Words
+  bag = [0] * words.length
+  for s in sentence_words
+    if words.include? s
+      bag[words.index(s)] = 1
+    end
+  end
+
+  return bag
 end
 
 # Use neural networks to classify articles
@@ -48,49 +78,19 @@ end
 words = words.uniq
 classes = classes.uniq
 
-# Display words, classes, documents
-# puts documents.length.to_s + " documents: " + documents.to_s
-# puts classes.length.to_s + " classes: " + classes.to_s
-# puts words.length.to_s + " unique stemmed words: " + words.to_s
-
 # create the training data
 training = []
 output = []
 
 # training set, bag of words for each sentence
 for doc in documents
-  # initialize bag of words
-  bag = []
-
-  # list of tokenized words for the pattern
-  pattern_words = doc[0]
-
-  # create our bag of words array
-  for w in words
-    if pattern_words.include? w
-      bag.push(1)
-    else
-      bag.push(0)
-    end
-  end
-
-  training.push(bag)
+  training.push(bag_of_words(doc[0], words))
 
   # output is a '0' for each tag and '1' for current tag
   output_row = [0] * classes.length
   output_row[classes.index(doc[1])] = 1
   output.push(output_row)
 end
-
-# Display training arrays
-# puts "doc"
-# puts documents[0][0].to_s
-# puts "training"
-# puts training[0].to_s
-# puts "output"
-# puts output[0].to_s
-
-
 
 
 
