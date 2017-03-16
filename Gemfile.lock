@@ -1,0 +1,25 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    classifier-reborn (2.1.0)
+      fast-stemmer (~> 1.0)
+    fast-stemmer (1.0.2)
+    hashable (0.1.2)
+    nbayes (0.1.1)
+    omnicat (0.3.0)
+      hashable (~> 0.1, >= 0.1.2)
+    omnicat-bayes (0.3.0)
+      omnicat (~> 0.3.0)
+    stemmify (0.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  classifier-reborn
+  nbayes
+  omnicat-bayes
+  stemmify
+
+BUNDLED WITH
+   1.11.2
