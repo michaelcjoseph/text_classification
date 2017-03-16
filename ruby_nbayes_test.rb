@@ -1157,3 +1157,16 @@ end
 test_article1 = "Intel’s $15 Billion Mobileye Buyout Puts It in the Autonomous Car Driver’s Seat The acquisition bags the chip maker a pivotal contender in the race to build robotic cars."
 puts "Test Article 1 - Should be Tech"
 result = nbayes_articles.classify(format_text(test_article1))
+puts result.max_class
+
+test_article2 = "How Donald Trump’s Enemies Fell For A Billion-Dollar Hoax An elaborate hoax based on forged documents escalates the phenomenon of “fake news” and reveals an audience on the left that seems willing to believe virtually any claim about Trump's bad deeds."
+puts "Test Article 2 - Should be Politics"
+result = nbayes_articles.classify(format_text(test_article2))
+puts result.max_class
+
+test_article3 = "BANG! Beyoncé trolls us, Nicki still lost and Trump stays pissed."
+puts "Test Article 3 - Should be Race & Culture (might end up being Politics because it says Trump in snippet)"
+result = nbayes_articles.classify(format_text(test_article3))
+puts result.max_class
+
+
